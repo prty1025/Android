@@ -141,23 +141,25 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
         ArrayList<String> list = new ArrayList();
         for (i = 0; i < tString.length(); i++) {
             if ((arrs[i] == '+') | (arrs[i] == '-') | (arrs[i] == '*') | (arrs[i] == '/') | (arrs[i] == '='))
+            {
                 strEnd = i;
-            opData[opCount] = tString.substring(strStart, strEnd);
-            list.add(opData[opCount]);
-            opCount++;
-            if (arrs[i] == '+')
-                list.add("+");
-            else if (arrs[i] == '-')
-                list.add("-");
-            else if (arrs[i] == '*')
-                list.add("*");
-            else if (arrs[i] == '/')
-                list.add("/");
-            if (arrs[i] != '=') {
-                strStart = i + 1;
+                 opData[opCount] = tString.substring(strStart, strEnd);
+                list.add(opData[opCount]);
                 opCount++;
+                if (arrs[i] == '+')
+                    list.add("+");
+                else if (arrs[i] == '-')
+                    list.add("-");
+                else if (arrs[i] == '*')
+                    list.add("*");
+                else if (arrs[i] == '/')
+                    list.add("/");
+                if (arrs[i] != '=') {
+                    strStart = i + 1;
+                    opCount++;
+                }
             }
-
+        }
 
     boolean opCal = false;
     double temp1 = 0;
@@ -172,12 +174,19 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
         {
             temp1=Double.parseDouble(list.get(i-1));
             temp2=Double.parseDouble(list.get(i+1));
-            sum = temp1/temp2;
+            sum = temp1*temp2;
+            opCal = true;
+        }
+        else if(item.equals("/")) {
+            temp1 = Double.parseDouble(list.get(i - 1));
+            temp2 = Double.parseDouble(list.get(i + 1));
+            sum = temp1 / temp2;
             opCal = true;
         }
         else {
             opCal = false;
         }
+
         if(opCal)
         {
             list.set(i,sum+"");
@@ -187,14 +196,16 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
         else{
             i++;
         }
+
         Boolean DEBUG = true;
         if(DEBUG)
         {
             for(Object str : list){
                 System.out.print(str);
             }
+
             System.out.println("");
-            System.out.println(sum;)
+            System.out.println(sum);
         }
     }
     result.setText(sum+"");
