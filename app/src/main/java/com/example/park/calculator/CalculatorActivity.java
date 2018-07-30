@@ -125,7 +125,8 @@ public class CalculatorActivity extends AppCompatActivity implements View.OnClic
                 preview.setText("");
                 break;
             case R.id. btnRun:
-                preview.setText(preview.getText()+"");
+                preview.setText(preview.getText()+"=");
+                Calculator();
                 break;
 
         }
